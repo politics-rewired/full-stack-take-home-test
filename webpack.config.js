@@ -1,7 +1,7 @@
 module.exports = {
   entry: "./client/index.jsx",
   output: {
-    filename: "./dist/client/bundle.js",
+    filename: "./client/bundle.js",
   },
   module: {
     rules: [

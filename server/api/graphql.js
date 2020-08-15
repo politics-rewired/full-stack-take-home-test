@@ -1,15 +1,27 @@
 import { ApolloServer, gql } from "apollo-server-express";
 
 const typeDefs = gql`
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+  }
+
   type Query {
-    hello: String
+    me: User
   }
 `;
 
 const resolvers = {
   Query: {
-    hello: () => "Hello world!",
+    me: (parent, args, { user }) => user,
   },
 };
 
-export const apolloServer = new ApolloServer({ typeDefs, resolvers });
+export const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({
+    user: req.user,
+  }),
+});
