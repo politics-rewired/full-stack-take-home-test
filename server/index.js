@@ -5,6 +5,7 @@ import passport from "passport";
 import path from "path";
 
 import { env } from "./config";
+import { apolloServer } from "./api/graphql";
 import { strategy } from "./lib/passport";
 
 // Passport setup
@@ -19,6 +20,7 @@ passport.deserializeUser((user, done) => {
 
 // API
 const api = express.Router();
+apolloServer.applyMiddleware({ app: api, path: "/graphql" });
 api.get("/session", (req, res) => res.send({ foo: "bar" }));
 api.post(
   "/session",
